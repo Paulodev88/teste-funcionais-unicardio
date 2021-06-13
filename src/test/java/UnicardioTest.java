@@ -38,5 +38,20 @@ public class UnicardioTest {
 		driver.findElement(By.className("btn-login")).click();			
 	}
 	
+	@Test
+	public void devoLogarComoAdm() {		
+			WebDriver driver = acessarAplicação();
+		
+		//Clickar em login
+		driver.findElement(By.id("btn-login")).click();		
+		//Escrever CPF
+		driver.findElement(By.id("input-cpf")).sendKeys("123456");
+		//Escrever Senha
+		driver.findElement(By.id("input-senha")).sendKeys("123456");
+		//Clickar em Entrar
+		driver.findElement(By.className("btn-login")).click();			
+	}
+	
+	
 	
 }
