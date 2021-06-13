@@ -33,10 +33,7 @@ public class UnicardioTest {
 		}	
 
 	@Test
-	public void devoAcessarHomePage() {		
-		
-		
-					
+	public void devoAcessarHomePage() {						
 		acessarAplicação().quit();		
 	}	
 	
@@ -92,8 +89,7 @@ public class UnicardioTest {
 		//Escrever Senha
 		driver.findElement(By.id("input-senha")).sendKeys("123456");
 		//Clickar em Entrar
-		driver.findElement(By.className("btn-login")).click();	
-		
+		driver.findElement(By.className("btn-login")).click();			
 		
 		//Abrir uma Nova Aba
 		try {
@@ -129,7 +125,6 @@ public class UnicardioTest {
 		driver.findElement(By.id("input-senha")).sendKeys("123456");	
 		//Confirmar a Senha
 		driver.findElement(By.id("input-confirma-senha")).sendKeys("123456");
-		//Clickar em Registrar	
 		}
 		finally {
 			//Fechar o drive			
@@ -150,8 +145,7 @@ public class UnicardioTest {
 		//Escrever Senha
 		driver.findElement(By.id("input-senha")).sendKeys("123456");
 		//Clickar em Entrar
-		driver.findElement(By.className("btn-login")).click();	
-		
+		driver.findElement(By.className("btn-login")).click();			
 		
 		//Abrir uma Nova Aba
 		try {
@@ -186,9 +180,7 @@ public class UnicardioTest {
 		//Digitar Senha
 		driver.findElement(By.id("input-senha")).sendKeys("123456");
 		//Confirmar a Senha
-		driver.findElement(By.id("input-confirma-senha")).sendKeys("123456");
-		//Clickar em Registrar	
-		
+		driver.findElement(By.id("input-confirma-senha")).sendKeys("123456");		
 		}
 		finally {
 			//Fechar o drive			
@@ -209,8 +201,7 @@ public class UnicardioTest {
 		//Escrever Senha
 		driver.findElement(By.id("input-senha")).sendKeys("123456");
 		//Clickar em Entrar
-		driver.findElement(By.className("btn-login")).click();	
-		
+		driver.findElement(By.className("btn-login")).click();			
 		
 		//Abrir uma Nova Aba
 		try {
@@ -230,8 +221,7 @@ public class UnicardioTest {
         driver.switchTo().window(windowHandles.get(1));
         
         //Acessar o registro exame como Medico
-        driver.get("http://localhost:8080/registros/exame");				
-		
+        driver.get("http://localhost:8080/registros/exame");			
 			
 		//Digitar CPF
 		driver.findElement(By.id("input-cpf")).sendKeys("192");
@@ -250,9 +240,7 @@ public class UnicardioTest {
 		Select selectObject2 = new Select(selectElement2);
 		selectObject2.selectByValue("2");	
 		//Digitar Recomendação
-		driver.findElement(By.id("input-recomendacoes")).sendKeys("Esse teste é recomendado por Paulo Ricardo");
-		//Clickar em Registrar	
-		
+		driver.findElement(By.id("input-recomendacoes")).sendKeys("Esse teste é recomendado por Paulo Ricardo");		
 		}
 		finally {
 			//Fechar o drive			
@@ -260,5 +248,53 @@ public class UnicardioTest {
 		}
 	}
 	
-	
+	@Test
+	public void devoRegistrarLaudo() {		
+		WebDriver driver = acessarAplicação();
+		
+		try {
+		
+		//Clickar em login para logar como Residente
+		driver.findElement(By.id("btn-login")).click();		
+		//Escrever CPF
+		driver.findElement(By.id("input-cpf")).sendKeys("941");
+		//Escrever Senha
+		driver.findElement(By.id("input-senha")).sendKeys("123456");
+		//Clickar em Entrar
+		driver.findElement(By.className("btn-login")).click();			
+		
+		//Abrir uma Nova Aba
+		try {
+            Robot robot = new Robot();
+            robot.keyPress(KeyEvent.VK_CONTROL);
+            robot.keyPress(KeyEvent.VK_T);
+            robot.keyRelease(KeyEvent.VK_CONTROL);
+            robot.keyRelease(KeyEvent.VK_T);
+			} catch (AWTException ex) {
+				throw new WebDriverException("Erro ao digitar CTRL + T", ex);
+			}
+
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        wait.until(ExpectedConditions.numberOfWindowsToBe(2));
+
+        List<String> windowHandles = new ArrayList<>(driver.getWindowHandles());
+        driver.switchTo().window(windowHandles.get(1));
+        
+        //Acessar o registro exame como Medico Residente
+        driver.get("http://localhost:8080/registros/laudo");		
+		
+        //Digitar CRM
+  		driver.findElement(By.id("input-crm")).sendKeys("768");
+		//Digitar CPF
+		driver.findElement(By.id("input-cpf")).sendKeys("192");				
+		//Digitar Data
+		driver.findElement(By.id("input-data-exame")).sendKeys("13062021");			
+		//Digitar Laudo
+		driver.findElement(By.id("input-text-area")).sendKeys("Esse Laudo é recomendado por Paulo Ricardo");		
+		}
+		finally {
+			//Fechar o drive			
+			driver.quit();
+		}
+	}	
 }
