@@ -7,20 +7,26 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class UnicardioTest {
+	
+	public WebDriver acessarAplicação() {		
+			
+			WebDriver driver = new ChromeDriver();
+			driver.navigate().to("http://localhost:8080");	
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			return driver;
+		}
+	
 
 	@Test
 	public void devoAcessarHomePage() {		
-		WebDriver driver = new ChromeDriver();
-		driver.navigate().to("http://localhost:8080");	
+		acessarAplicação();
 		
 	}
 	
 	
 	@Test
 	public void devoLogarComoPaciente() {		
-		WebDriver driver = new ChromeDriver();
-		driver.navigate().to("http://localhost:8080");
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		WebDriver driver = acessarAplicação();
 		
 		//Clickar em login
 		driver.findElement(By.id("btn-login")).click();		
@@ -31,4 +37,6 @@ public class UnicardioTest {
 		//Clickar em Entrar
 		driver.findElement(By.className("btn-login")).click();			
 	}
+	
+	
 }
